@@ -24,6 +24,7 @@ photo ─► OpenCV preprocess ─► YOLOv8 symbol detector ─► EasyOCR (fab
 | `app/streamlit_app.py` | Web app (scan mode + demo mode) |
 | `models/best.pt` | Trained detector used by the app (run `yolov8n_v2_noleak`) |
 | `models/best_yolov8n_v1.pt` | First run, kept for comparison (its test score is inflated, see Results) |
+| `requirements.txt`, `packages.txt` | Python packages (CPU PyTorch) and system libraries for running the app / deploying |
 | `tests/` | 46 unit tests for the rules, fabric parser, preprocessing and dataset scripts |
 
 ## Quick start
@@ -40,6 +41,17 @@ streamlit run app/streamlit_app.py         # opens the app in the browser
 ```
 
 Use Python 3.10–3.12. The first scan downloads EasyOCR's Thai and English models.
+
+## Deploy online (Streamlit Community Cloud, free)
+
+1. Sign in at [share.streamlit.io](https://share.streamlit.io) with the GitHub account that owns this repo.
+2. **Create app** → **Deploy a public app from GitHub** → repository `arkarmin19/Laundry_Care`,
+   branch `main`, main file path `app/streamlit_app.py`.
+3. **Advanced settings** → Python **3.12** → **Deploy**.
+
+`requirements.txt` installs CPU-only PyTorch (smaller and faster to install), and `packages.txt`
+adds the system libraries OpenCV needs. The first build takes several minutes, and the first scan
+downloads the OCR models. Apps sleep after 12 hours without visitors; opening the link wakes them.
 
 **Demo mode** lets you pick symbols by hand and see the care guide, so the rules and the UI
 can be built and tested while the dataset is still being labelled.

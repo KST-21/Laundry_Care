@@ -1,6 +1,12 @@
-ultralytics>=8.3      # YOLOv8 training + inference (also installs OpenCV and PyTorch)
-easyocr>=1.7          # label text (fabric, temperature)
+# CPU-only PyTorch: much smaller than the default GPU build, and the app runs on CPU anyway
+# (laptop and Streamlit Community Cloud). Colab installs its own GPU PyTorch, so this
+# file is not used there.
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch
+torchvision
+
+ultralytics>=8.3      # YOLOv8 inference (also installs OpenCV)
+easyocr>=1.7          # label text (Thai + English)
 pyyaml>=6.0
 numpy
 streamlit>=1.35       # web app
-roboflow              # dataset download (Colab notebook)
